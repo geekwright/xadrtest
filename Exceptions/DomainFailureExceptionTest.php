@@ -1,17 +1,17 @@
 <?php
-namespace Xmf\Xadr;
+namespace Xmf\Xadr\Exceptions;
 
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_mini.php');
 
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class XoopsTplRenderTest extends \PHPUnit_Framework_TestCase
+class DomainFailureExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var XoopsTplRender
+     * @var DomainFailureException
      */
     protected $object;
 
@@ -21,7 +21,7 @@ class XoopsTplRenderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new XoopsTplRender;
+        $this->object = new DomainFailureException;
     }
 
     /**
@@ -32,15 +32,9 @@ class XoopsTplRenderTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers Xmf\Xadr\XoopsTplRender::setAttribute
-     * @todo   Implement testSetAttribute().
-     */
-    public function testSetAttribute()
+    public function testException()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->setExpectedException('Xmf\Xadr\Exceptions\DomainFailureException');
+        throw $this->object;
     }
 }

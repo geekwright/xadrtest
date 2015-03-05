@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class UserTest extends \MY_UnitTestCase
+class UserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var User
@@ -35,49 +35,22 @@ class UserTest extends \MY_UnitTestCase
 
     /**
      * @covers Xmf\Xadr\User::clearAll
-     * @todo   Implement testClearAll().
+     * @covers Xmf\Xadr\User::isAuthenticated
+     * @covers Xmf\Xadr\User::setAuthenticated
      */
     public function testClearAll()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\User::isAuthenticated
-     * @todo   Implement testIsAuthenticated().
-     */
-    public function testIsAuthenticated()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\User::setAuthenticated
-     * @todo   Implement testSetAuthenticated().
-     */
-    public function testSetAuthenticated()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setAuthenticated(true);
+        $this->assertTrue($this->object->isAuthenticated());
+        $this->object->clearAll();
+        $this->assertFalse($this->object->isAuthenticated());
     }
 
     /**
      * @covers Xmf\Xadr\User::hasPrivilege
-     * @todo   Implement testHasPrivilege().
      */
     public function testHasPrivilege()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertFalse($this->object->hasPrivilege());
     }
 }

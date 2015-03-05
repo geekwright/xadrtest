@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class CleanTest extends \MY_UnitTestCase
+class CleanTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Clean

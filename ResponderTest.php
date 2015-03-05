@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ResponderTest extends \MY_UnitTestCase
+class ResponderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Responder

@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class XadrTest extends \MY_UnitTestCase
+class XadrTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Xadr

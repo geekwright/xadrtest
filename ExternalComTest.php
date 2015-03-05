@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ExternalComTest extends \MY_UnitTestCase
+class ExternalComTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ExternalCom
@@ -33,26 +33,22 @@ class ExternalComTest extends \MY_UnitTestCase
     }
 
     /**
-     * @covers Xmf\Xadr\ExternalCom::getDirname
-     * @todo   Implement testGetDirname().
+     * @covers Xmf\Xadr\ExternalCom::__construct
      */
-    public function testGetDirname()
+    public function testConstruct()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\Request', $this->object);
     }
 
     /**
+     * @covers Xmf\Xadr\ExternalCom::getDirname
      * @covers Xmf\Xadr\ExternalCom::setDirname
-     * @todo   Implement testSetDirname().
      */
-    public function testSetDirname()
+    public function testGetSetDirname()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getDirname());
+        $expected = 'xadrtest';
+        $this->object->setDirname($expected);
+        $this->assertEquals($expected, $this->object->getDirname());
     }
 }

@@ -3,12 +3,22 @@ namespace Xmf\Xadr;
 
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
+// this Filter just sets the 'ourmessage'
+class FilterChainTestFilter extends Filter
+{
+    public function execute($filterChain)
+    {
+        $this->request()->attributes->set('ourmessage', 'fred');
+        $filterChain->execute();
+    }
+}
+
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class FilterChainTest extends \MY_UnitTestCase
+class FilterChainTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FilterChain
@@ -16,11 +26,17 @@ class FilterChainTest extends \MY_UnitTestCase
     protected $object;
 
     /**
+     * @var Controlller
+     */
+    protected $context;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
+        $this->context = Controller::getNew();
         $this->object = new FilterChain;
     }
 
@@ -33,26 +49,17 @@ class FilterChainTest extends \MY_UnitTestCase
     }
 
     /**
-     * @covers Xmf\Xadr\FilterChain::execute
-     * @todo   Implement testExecute().
-     */
-    public function testExecute()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\FilterChain::register
-     * @todo   Implement testRegister().
+     * @covers Xmf\Xadr\FilterChain::execute
      */
-    public function testRegister()
+    public function testRegisterExecute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $attrName = 'ourmessage';
+        $attributes = $this->context->getRequest()->attributes;
+        $attributes->remove($attrName);
+        $this->object->register(new FilterChainTestFilter($this->context));
+        $this->assertNull($attributes->get($attrName));
+        $this->object->execute($this->object);
+        $this->assertSame('fred', $attributes->get($attrName));
     }
 }

@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class XoopsSmartyRendererTest extends \MY_UnitTestCase
+class XoopsSmartyRendererTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var XoopsSmartyRenderer

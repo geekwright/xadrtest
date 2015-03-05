@@ -39,6 +39,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
     public function testGet()
     {
         $this->assertNull($this->object->get('--NoNameLikeThisAtAll--'));
+        $this->assertSame('OK', $this->object->get('testvalue', 'OK'));
     }
 
     /**
@@ -47,7 +48,7 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $this->object->set('testvalue','OK');
+        $this->object->set('testvalue', 'OK');
         $this->assertSame('OK', $this->object->get('testvalue', 'NotOK'));
     }
 
@@ -57,10 +58,13 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAll()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getAll();
+        $this->assertArrayHasKey('test1', $all);
+        $this->assertArrayHasKey('test2', $all);
+        $this->assertEquals('OK1', $all['test1']);
+        $this->assertEquals('OK2', $all['test2']);
     }
 
     /**
@@ -69,10 +73,10 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNames()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getNames();
+        $this->assertEquals(array('test1', 'test2'), $all);
     }
 
     /**
@@ -81,10 +85,11 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->hasName('test1'));
+        $this->assertTrue($this->object->hasName('test2'));
+        $this->assertFalse($this->object->hasName('test3'));
     }
 
     /**
@@ -93,22 +98,12 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemove()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Attributes::setByRef
-     * @todo   Implement testSetByRef().
-     */
-    public function testSetByRef()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->hasName('test1'));
+        $this->assertTrue($this->object->hasName('test2'));
+        $this->object->remove('test1');
+        $this->assertFalse($this->object->hasName('test1'));
     }
 
     /**
@@ -117,10 +112,26 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAll()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->hasName('test1'));
+        $this->assertTrue($this->object->hasName('test2'));
+
+        $replacements = array(
+            'test3' => 'OK3',
+            'test4' => 'OK4',
         );
+        $oldValues = $this->object->setAll($replacements);
+        $this->assertArrayHasKey('test1', $oldValues);
+        $this->assertArrayHasKey('test2', $oldValues);
+        $this->assertArrayNotHasKey('test3', $oldValues);
+        $this->assertArrayNotHasKey('test4', $oldValues);
+        $this->assertTrue($this->object->hasName('test3'));
+        $this->assertTrue($this->object->hasName('test4'));
+        $this->assertFalse($this->object->hasName('test1'));
+        $this->assertFalse($this->object->hasName('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
+        $this->assertSame('OK4', $this->object->get('test4'));
     }
 
     /**
@@ -129,10 +140,25 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMerge()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+
+        $this->assertTrue($this->object->hasName('test1'));
+        $this->assertTrue($this->object->hasName('test2'));
+
+        $replacements = array(
+            'test2' => 'OK2new',
+            'test3' => 'OK3',
         );
+        $this->object->setMerge($replacements);
+
+        $this->assertTrue($this->object->hasName('test1'));
+        $this->assertTrue($this->object->hasName('test2'));
+        $this->assertTrue($this->object->hasName('test3'));
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2new', $this->object->get('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
     }
 
     /**
@@ -141,9 +167,13 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetArrayItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->setArrayItem('test', 'a', 'OK1');
+        $this->object->setArrayItem('test', 'b', 'OK2');
+
+        $expected = array(
+            'a' => 'OK1',
+            'b' => 'OK2',
         );
+        $this->assertEquals($expected, $this->object->get('test'));
     }
 }

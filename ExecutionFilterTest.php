@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ExecutionFilterTest extends \MY_UnitTestCase
+class ExecutionFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ExecutionFilter

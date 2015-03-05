@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ContextAwareTest extends \MY_UnitTestCase
+class ContextAwareTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ContextAware
@@ -22,8 +22,10 @@ class ContextAwareTest extends \MY_UnitTestCase
     protected function setUp()
     {
         $context = \Xmf\Xadr\Controller::getNew();
+        // user be set until Controller::dispatch() or Controller::setUser() is called
+        $context->setUser(new User($context));
         $this->object = $this->getMockForAbstractClass('Xmf\Xadr\ContextAware', array($context));
-   }
+    }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
@@ -35,14 +37,10 @@ class ContextAwareTest extends \MY_UnitTestCase
 
     /**
      * @covers Xmf\Xadr\ContextAware::config
-     * @todo   Implement testConfig().
      */
     public function testConfig()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\Config', $this->object->config());
     }
 
     /**
@@ -51,54 +49,38 @@ class ContextAwareTest extends \MY_UnitTestCase
      */
     public function testContext()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\Controller', $this->object->context());
     }
 
     /**
      * @covers Xmf\Xadr\ContextAware::controller
-     * @todo   Implement testController().
      */
     public function testController()
     {
-        $this->assertInstanceOf('Xmf\Xadr\Controller', $this->object->Controller());
+        $this->assertInstanceOf('Xmf\Xadr\Controller', $this->object->controller());
     }
 
     /**
      * @covers Xmf\Xadr\ContextAware::request
-     * @todo   Implement testRequest().
      */
     public function testRequest()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\Request', $this->object->request());
     }
 
     /**
      * @covers Xmf\Xadr\ContextAware::user
-     * @todo   Implement testUser().
      */
     public function testUser()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\User', $this->object->user());
     }
 
     /**
      * @covers Xmf\Xadr\ContextAware::domain
-     * @todo   Implement testDomain().
      */
     public function testDomain()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Xmf\Xadr\DomainManager', $this->object->domain());
     }
 }

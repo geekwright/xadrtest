@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ZendI18nTest extends \MY_UnitTestCase
+class ZendI18nTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ZendI18n
