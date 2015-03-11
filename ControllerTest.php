@@ -34,11 +34,12 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Controller::getNew
-     * @todo   Implement testGetNew().
      */
     public function testGetNew()
     {
-        $this->assertNotSame($this->object, Controller::getNew());
+        $actual = Controller::getNew();
+        $this->assertInstanceOf('\Xmf\Xadr\Controller', $actual);
+        $this->assertNotSame($this->object, $actual);
     }
 
     /**
@@ -223,14 +224,22 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Controller::getRequest
-     * @todo   Implement testGetRequest().
      */
     public function testGetRequest()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $obj = $this->object->getRequest();
+        $this->assertInstanceOf('\Xmf\Xadr\Request', $obj);
+        $this->assertSame($obj, $this->object->getRequest());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Controller::getResponse
+     */
+    public function testGetResponse()
+    {
+        $obj = $this->object->getResponse();
+        $this->assertInstanceOf('\Xmf\Xadr\Response', $obj);
+        $this->assertSame($obj, $this->object->getResponse());
     }
 
     /**
@@ -403,21 +412,19 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Controller::getDomainManager
-     * @todo   Implement testGetDomainManager().
      */
     public function testGetDomainManager()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $dm = $this->object->getDomainManager();
+        $this->assertInstanceOf('\Xmf\Xadr\DomainManager', $dm);
+        $this->assertSame($dm, $this->object->getDomainManager());
     }
 
     /**
-     * @covers Xmf\Xadr\Controller::getDomain
-     * @todo   Implement testGetDomain().
+     * @covers Xmf\Xadr\Controller::getDomainComponent
+     * @todo   Implement testGetDomainComponent().
      */
-    public function testGetDomain()
+    public function testGetDomainComponent()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

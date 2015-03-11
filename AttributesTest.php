@@ -34,7 +34,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::get
-     * @todo   Implement testGet().
      */
     public function testGet()
     {
@@ -44,7 +43,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::set
-     * @todo   Implement testSet().
      */
     public function testSet()
     {
@@ -54,7 +52,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::getAll
-     * @todo   Implement testGetAll().
      */
     public function testGetAll()
     {
@@ -69,7 +66,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::getNames
-     * @todo   Implement testGetNames().
      */
     public function testGetNames()
     {
@@ -81,7 +77,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::hasName
-     * @todo   Implement testHasName().
      */
     public function testHasName()
     {
@@ -94,7 +89,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::remove
-     * @todo   Implement testRemove().
      */
     public function testRemove()
     {
@@ -108,7 +102,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::setAll
-     * @todo   Implement testSetAll().
      */
     public function testSetAll()
     {
@@ -136,7 +129,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::setMerge
-     * @todo   Implement testSetMerge().
      */
     public function testSetMerge()
     {
@@ -163,7 +155,6 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Attributes::setArrayItem
-     * @todo   Implement testSetArrayItem().
      */
     public function testSetArrayItem()
     {
@@ -175,5 +166,48 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
             'b' => 'OK2',
         );
         $this->assertEquals($expected, $this->object->get('test'));
+    }
+
+    /**
+     * @covers Xmf\Xadr\Attributes::getAllLike
+     */
+    public function testGetAllLike()
+    {
+        $this->object->set('oddball', 'odd');
+        $this->object->set('test1', 'OK1');
+        $this->object->set('text1', 'NOTOK1');
+        $this->object->set('text2', 'NOTOK2');
+        $this->object->set('test2', 'OK2');
+
+        $subset = $this->object->getAllLike('test');
+        $this->assertCount(2, $subset);
+        $this->assertArrayHasKey('test1', $subset);
+        $this->assertArrayHasKey('test2', $subset);
+        $this->assertEquals('OK1', $subset['test1']);
+        $this->assertEquals('OK2', $subset['test2']);
+
+        $subset = $this->object->getAllLike('oddball');
+        $this->assertCount(1, $subset);
+        $this->assertArrayHasKey('oddball', $subset);
+        $this->assertEquals('odd', $subset['oddball']);
+
+        $subset = $this->object->getAllLike('garbage');
+        $this->assertCount(0, $subset);
+    }
+
+    public function testArrayAccess()
+    {
+        $this->object['test1'] = 'OK1';
+        $this->object->set('test2', 'OK2');
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2', $this->object['test2']);
+        $this->assertEquals(2, count($this->object));
+        $i = 0;
+        foreach ($this->object as $v) {
+            ++$i;
+        }
+        $this->assertEquals($i, count($this->object));
+        $this->assertSame('OK2', $v);
     }
 }

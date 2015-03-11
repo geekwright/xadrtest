@@ -34,7 +34,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Config::get
-     * @todo   Implement testGet().
      */
     public function testGet()
     {
@@ -43,7 +42,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Config::set
-     * @todo   Implement testSet().
      */
     public function testSet()
     {
@@ -53,7 +51,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Config::getConfigs
-     * @todo   Implement testGetConfigs().
      */
     public function testGetConfigs()
     {

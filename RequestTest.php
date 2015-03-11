@@ -36,10 +36,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::getCookie
-     * @todo   Implement testGetCookie().
+     * @covers Xmf\Xadr\Request::getMethod
+     * @todo   Implement testGetMethod().
      */
-    public function testGetCookie()
+    public function testGetMethod()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -48,10 +48,10 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::getCookieNames
-     * @todo   Implement testGetCookieNames().
+     * @covers Xmf\Xadr\Request::setMethod
+     * @todo   Implement testSetMethod().
      */
-    public function testGetCookieNames()
+    public function testSetMethod()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -60,10 +60,70 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::getCookies
-     * @todo   Implement testGetCookies().
+     * @covers Xmf\Xadr\Request::getParameter
      */
-    public function testGetCookies()
+    public function testGetParameter()
+    {
+        $actual = $this->object->getParameter('key');
+        $this->assertSame('value', $actual);
+        $actual = $this->object->getParameter('nosuchkey');
+        $this->assertNull($actual);
+        $actual = $this->object->getParameter('nosuchkey', 'default');
+        $this->assertSame('default', $actual);
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::getParameters
+     */
+    public function testGetParameters()
+    {
+        $obj = $this->object->getParameters();
+        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
+        $this->assertSame($obj, $this->object->getParameters());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::hasParameter
+     */
+    public function testHasParameter()
+    {
+        $this->assertTrue($this->object->hasParameter('key'));
+        $this->assertFalse($this->object->hasParameter('nosuchkey'));
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::setParameter
+     */
+    public function testSetParameter()
+    {
+        $actual = $this->object->getParameter('key');
+        $this->assertSame('value', $actual);
+        $this->object->setParameter('key', 'newvalue');
+        $actual = $this->object->getParameter('key');
+        $this->assertSame('newvalue', $actual);
+        $this->assertFalse($this->object->hasParameter('nosuchkey'));
+        $this->object->setParameter('nosuchkey', 'somevalue');
+        $this->assertSame('somevalue', $this->object->getParameter('nosuchkey'));
+
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::setParameterByRef
+     * @todo   Implement testSetParameterByRef().
+     */
+    public function testSetParameterByRef()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::setParameterArray
+     * @todo   Implement testSetParameterArray().
+     */
+    public function testSetParameterArray()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -85,14 +145,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Request::getErrors
-     * @todo   Implement testGetErrors().
      */
     public function testGetErrors()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $obj = $this->object->getErrors();
+        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
+        $this->assertSame($obj, $this->object->getErrors());
     }
 
     /**
@@ -100,66 +158,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      * @todo   Implement testGetErrorsAsHtml().
      */
     public function testGetErrorsAsHtml()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::getMethod
-     * @todo   Implement testGetMethod().
-     */
-    public function testGetMethod()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::getParameter
-     * @todo   Implement testGetParameter().
-     */
-    public function testGetParameter()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::getParameterNames
-     * @todo   Implement testGetParameterNames().
-     */
-    public function testGetParameterNames()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::getParameters
-     * @todo   Implement testGetParameters().
-     */
-    public function testGetParameters()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::hasCookie
-     * @todo   Implement testHasCookie().
-     */
-    public function testHasCookie()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
@@ -192,30 +190,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::hasParameter
-     * @todo   Implement testHasParameter().
-     */
-    public function testHasParameter()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::removeParameter
-     * @todo   Implement testRemoveParameter().
-     */
-    public function testRemoveParameter()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::setError
      * @todo   Implement testSetError().
      */
@@ -232,54 +206,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      * @todo   Implement testSetErrors().
      */
     public function testSetErrors()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setMethod
-     * @todo   Implement testSetMethod().
-     */
-    public function testSetMethod()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setParameter
-     * @todo   Implement testSetParameter().
-     */
-    public function testSetParameter()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setParameterByRef
-     * @todo   Implement testSetParameterByRef().
-     */
-    public function testSetParameterByRef()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setParameterArray
-     * @todo   Implement testSetParameterArray().
-     */
-    public function testSetParameterArray()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(

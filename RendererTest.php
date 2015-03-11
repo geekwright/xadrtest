@@ -22,7 +22,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $context = \Xmf\Xadr\Controller::getNew();
-        $this->object = new Renderer($context);
+        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\Renderer', array($context));
     }
 
     /**
@@ -34,122 +34,80 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Renderer::clearResult
-     * @todo   Implement testClearResult().
-     */
-    public function testClearResult()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Renderer::execute
-     * @todo   Implement testExecute().
      */
     public function testExecute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue(method_exists($this->object , 'execute'));
+    }
+
+    /**
+     * @covers Xmf\Xadr\Renderer::clearResult
+     */
+    public function testClearResult()
+    {
+        $this->assertNull($this->object->clearResult());
     }
 
     /**
      * @covers Xmf\Xadr\Renderer::fetchResult
-     * @todo   Implement testFetchResult().
      */
     public function testFetchResult()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertSame('', $this->object->fetchResult());
     }
 
     /**
      * @covers Xmf\Xadr\Renderer::getMode
-     * @todo   Implement testGetMode().
      */
     public function testGetMode()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Renderer::getTemplateDir
-     * @todo   Implement testGetTemplateDir().
-     */
-    public function testGetTemplateDir()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Renderer::isPathAbsolute
-     * @todo   Implement testIsPathAbsolute().
-     */
-    public function testIsPathAbsolute()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals(Xadr::RENDER_CLIENT, $this->object->getMode());
     }
 
     /**
      * @covers Xmf\Xadr\Renderer::setMode
-     * @todo   Implement testSetMode().
      */
     public function testSetMode()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals(Xadr::RENDER_CLIENT, $this->object->getMode());
+        $this->object->setMode(Xadr::RENDER_VARIABLE);
+        $this->assertEquals(Xadr::RENDER_VARIABLE, $this->object->getMode());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Renderer::getTemplate
+     */
+    public function testGetTemplate()
+    {
+        $this->assertNull($this->object->getTemplate());
     }
 
     /**
      * @covers Xmf\Xadr\Renderer::setTemplate
-     * @todo   Implement testSetTemplate().
      */
     public function testSetTemplate()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getTemplate());
+        $this->object->setTemplate('templatename');
+        $this->assertEquals('templatename', $this->object->getTemplate());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Renderer::getTemplateDir
+     */
+    public function testGetTemplateDir()
+    {
+        $this->assertNull($this->object->getTemplateDir());
     }
 
     /**
      * @covers Xmf\Xadr\Renderer::setTemplateDir
-     * @todo   Implement testSetTemplateDir().
      */
     public function testSetTemplateDir()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Renderer::templateExists
-     * @todo   Implement testTemplateExists().
-     */
-    public function testTemplateExists()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->getTemplateDir());
+        $this->object->setTemplateDir('templatedir');
+        $this->assertEquals('templatedir', $this->object->getTemplateDir());
     }
 }

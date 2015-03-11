@@ -9,9 +9,17 @@ class DomainManagerTestCatalog extends Catalog
 
 class DomainManagerTestExceptionCatalog extends Catalog
 {
-    public function initalize()
+    public function initialize()
     {
         return false;
+    }
+}
+
+class DomainManagerTestChainedExceptionCatalog extends Catalog
+{
+    public function initialize()
+    {
+        throw new \InvalidArgumentException('Testing chained Exceptions');
     }
 }
 
@@ -43,10 +51,11 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $map = array(
           array('Domain', 'Unit', new DomainManagerTestCatalog($stub)),
           array('BadDomain', 'Unit', new DomainManagerTestExceptionCatalog($stub)),
+          array('Chained', 'Unit', new DomainManagerTestChainedExceptionCatalog($stub)),
           array('Garbage', 'Unit', new \ArrayObject),
         );
 
-        $stub->method('getDomain')
+        $stub->method('getDomainComponent')
             ->will($this->returnValueMap($map));
 
         $stub->method('getCurrentUnit')
@@ -65,43 +74,59 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\DomainManager::loadDomain
+     * @covers Xmf\Xadr\DomainManager::__construct
      */
-    public function testLoadDomain()
+    public function testConstruct()
     {
-        $domain = $this->object->loadDomain('Domain', 'Unit');
+        $this->assertInstanceOf('\Xmf\Xadr\DomainManager', $this->object);
+    }
+
+    /**
+     * @covers Xmf\Xadr\DomainManager::getDomain
+     */
+    public function testGetDomain()
+    {
+        $domain = $this->object->getDomain('Domain', 'Unit');
         $this->assertInstanceOf('\Xmf\Xadr\Domain', $domain);
-        $actual = $this->object->loadDomain('Domain');
+        $actual = $this->object->getDomain('Domain');
         $this->assertSame($domain, $actual);
-        $actual = $this->object->loadDomain('Domain', 'Unit');
+        $actual = $this->object->getDomain('Domain', 'Unit');
         $this->assertSame($domain, $actual);
     }
 
     /**
-     * @covers Xmf\Xadr\DomainManager::loadDomain
+     * @covers Xmf\Xadr\DomainManager::getDomain
      */
-    public function testLoadDomainException()
+    public function testGetDomainException()
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidDomainException');
-        $domain = $this->object->loadDomain('Garbage', 'Unit');
+        $domain = $this->object->getDomain('Garbage', 'Unit');
     }
 
     /**
-     * @covers Xmf\Xadr\DomainManager::loadDomain
+     * @covers Xmf\Xadr\DomainManager::getDomain
      */
-    public function testLoadDomainFailureException()
+    public function testGetDomainFailureException()
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\DomainFailureException');
-        $domain = $this->object->loadDomain('BadDomain', 'Unit');
+        $domain = $this->object->getDomain('BadDomain', 'Unit');
+    }
+
+    /**
+     * @covers Xmf\Xadr\DomainManager::getDomain
+     */
+    public function testGetDomainFailureChainedException()
+    {
+        $this->setExpectedException('Xmf\Xadr\Exceptions\DomainFailureException');
+        $domain = $this->object->getDomain('Chained', 'Unit');
     }
 
     /**
      * @covers Xmf\Xadr\DomainManager::shutdown
-     * @todo   Implement testShutdown().
      */
     public function testShutdown()
     {
-        $domain = $this->object->loadDomain('Domain', 'Unit');
+        $domain = $this->object->getDomain('Domain', 'Unit');
         $this->assertInstanceOf('\Xmf\Xadr\Domain', $domain);
         $this->assertTrue($this->object->shutdown());
     }

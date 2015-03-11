@@ -36,7 +36,6 @@ class FilterListTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\FilterList::registerFilters
-     * @todo   Implement testRegisterFilters().
      */
     public function testRegisterFilters()
     {

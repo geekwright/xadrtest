@@ -45,7 +45,6 @@ class ContextAwareTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\ContextAware::context
-     * @todo   Implement testContext().
      */
     public function testContext()
     {
@@ -66,6 +65,14 @@ class ContextAwareTest extends \PHPUnit_Framework_TestCase
     public function testRequest()
     {
         $this->assertInstanceOf('Xmf\Xadr\Request', $this->object->request());
+    }
+
+    /**
+     * @covers Xmf\Xadr\ContextAware::response
+     */
+    public function testResponse()
+    {
+        $this->assertInstanceOf('Xmf\Xadr\Response', $this->object->response());
     }
 
     /**

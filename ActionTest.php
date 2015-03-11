@@ -28,10 +28,6 @@ class ActionTest extends \PHPUnit_Framework_TestCase
     {
         $this->context = \Xmf\Xadr\Controller::getNew();
         $this->object = $this->getMockForAbstractClass('Xmf\Xadr\Action', array($this->context));
-        //$this->object = new Action;
-        //$this->markTestSkipped(
-        //  'Test for this abstract class has not been implemented yet.'
-        //);
     }
 
     /**
@@ -44,43 +40,43 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Action::getDefaultResponse
-     * @todo   Implement testGetDefaultResponse().
      */
     public function testGetDefaultResponse()
     {
-        $this->assertSame(Xadr::RESPONSE_INPUT, $this->object->getDefaultResponse());
+        $response = $this->object->getDefaultResponse();
+        $this->assertInstanceOf('\Xmf\Xadr\ResponseSelector', $response);
+        $this->assertSame(Xadr::RESPONSE_INPUT, $response->getResponseCode());
     }
 
     /**
-     * @covers Xmf\Xadr\Action::getPrivilege
-     * @todo   Implement testGetPrivilege().
+     * @covers Xmf\Xadr\Action::getRequiredPrivilege
      */
-    public function testGetPrivilege()
+    public function testGetRequiredPrivilege()
     {
-        $this->assertSame(null, $this->object->getPrivilege());
+        $this->assertSame(null, $this->object->getRequiredPrivilege());
     }
 
     /**
      * @covers Xmf\Xadr\Action::getRequestMethods
-     * @todo   Implement testGetRequestMethods().
      */
     public function testGetRequestMethods()
     {
         $this->assertSame(Xadr::REQUEST_GET | Xadr::REQUEST_POST, $this->object->getRequestMethods());
+        $this->assertSame(Xadr::REQUEST_ALL, $this->object->getRequestMethods());
     }
 
     /**
-     * @covers Xmf\Xadr\Action::handleError
-     * @todo   Implement testHandleError().
+     * @covers Xmf\Xadr\Action::getErrorResponse
      */
-    public function testHandleError()
+    public function testGetErrorResponse()
     {
-        $this->assertSame(Xadr::RESPONSE_ERROR, $this->object->handleError());
+        $response = $this->object->getErrorResponse();
+        $this->assertInstanceOf('\Xmf\Xadr\ResponseSelector', $response);
+        $this->assertSame(Xadr::RESPONSE_ERROR, $response->getResponseCode());
     }
 
     /**
      * @covers Xmf\Xadr\Action::initialize
-     * @todo   Implement testInitialize().
      */
     public function testInitialize()
     {
@@ -89,7 +85,6 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Action::isSecure
-     * @todo   Implement testIsSecure().
      */
     public function testIsSecure()
     {
@@ -98,7 +93,6 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Action::registerValidators
-     * @todo   Implement testRegisterValidators().
      */
     public function testRegisterValidators()
     {
@@ -108,7 +102,6 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Action::validate
-     * @todo   Implement testValidate().
      */
     public function testValidate()
     {

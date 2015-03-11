@@ -35,7 +35,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Filter::initialize
-     * @todo   Implement testInitialize().
      */
     public function testInitialize()
     {

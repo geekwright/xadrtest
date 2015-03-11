@@ -35,7 +35,7 @@ class XadrTest extends \PHPUnit_Framework_TestCase
     public function testXadr()
     {
         $this->assertNotNull(Xadr::RENDER_CLIENT);
-        $this->assertNotNull(Xadr::RENDER_VAR);
+        $this->assertNotNull(Xadr::RENDER_VARIABLE);
         $this->assertNotNull(Xadr::REQUEST_NONE);
         $this->assertNotNull(Xadr::REQUEST_GET);
         $this->assertNotNull(Xadr::REQUEST_POST);

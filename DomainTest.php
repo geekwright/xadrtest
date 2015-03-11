@@ -1,17 +1,15 @@
 <?php
 namespace Xmf\Xadr;
 
-require_once(dirname(__FILE__).'/../../../init_mini.php');
-
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ResponderTest extends \PHPUnit_Framework_TestCase
+class DomainTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Responder
+     * @var Domain
      */
     protected $object;
 
@@ -22,7 +20,7 @@ class ResponderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $context = \Xmf\Xadr\Controller::getNew();
-        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\Responder', array($context));
+        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\Domain', array($context));
     }
 
     /**
@@ -34,18 +32,26 @@ class ResponderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Responder::cleanup
+     * @covers Xmf\Xadr\Catalog::initialize
      */
-    public function testCleanup()
+    public function testinitialize()
     {
-        $this->assertNull($this->object->cleanup());
+        $this->assertTrue(method_exists($this->object , 'initialize'));
     }
 
     /**
-     * @covers Xmf\Xadr\Responder::initialize
+     * @covers Xmf\Xadr\Catalog::cleanup
      */
-    public function testInitialize()
+    public function testCleanup()
     {
-        $this->assertNull($this->object->initialize());
+        $this->assertTrue(method_exists($this->object , 'cleanup'));
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog::state
+     */
+    public function testState()
+    {
+        $this->assertTrue(method_exists($this->object , 'state'));
     }
 }

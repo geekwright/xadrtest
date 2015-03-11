@@ -9,7 +9,7 @@ class EntryTestCatalog extends \Xmf\Xadr\Catalog
 
 class EntryTestEntry extends Entry
 {
-    public function __construct($type, $name)
+    public function __construct($name, $type)
     {
         $this->entryType = $type;
         $this->entryName = $name;
@@ -34,7 +34,7 @@ class EntryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new EntryTestEntry('test', 'entry');
+        $this->object = new EntryTestEntry('entry', 'test');
     }
 
     /**
@@ -68,9 +68,6 @@ class EntryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCatalog()
     {
-        $actual = $this->object->catalog();
-        $this->assertNull($actual);
-
         $cat = new EntryTestCatalog;
 
         $actual = $this->object->catalog($cat);
@@ -83,10 +80,20 @@ class EntryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Xmf\Xadr\Catalog\Entry::catalog
      */
-    public function testException()
+    public function testCatalogException()
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogException');
         $notCat = new \ArrayObject;
         $actual = $this->object->catalog($notCat);
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Entry::catalog
+     */
+    public function testCatalogException2()
+    {
+        $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogException');
+        $actual = $this->object->catalog();
+        var_dump($actual);
     }
 }
