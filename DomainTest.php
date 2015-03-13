@@ -32,11 +32,20 @@ class DomainTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Domain::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\Domain', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\Catalog::initialize
      */
     public function testinitialize()
     {
-        $this->assertTrue(method_exists($this->object , 'initialize'));
+        $this->assertTrue(method_exists($this->object, 'initialize'));
     }
 
     /**
@@ -44,7 +53,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
      */
     public function testCleanup()
     {
-        $this->assertTrue(method_exists($this->object , 'cleanup'));
+        $this->assertTrue(method_exists($this->object, 'cleanup'));
     }
 
     /**
@@ -52,6 +61,6 @@ class DomainTest extends \PHPUnit_Framework_TestCase
      */
     public function testState()
     {
-        $this->assertTrue(method_exists($this->object , 'state'));
+        $this->assertTrue(method_exists($this->object, 'state'));
     }
 }

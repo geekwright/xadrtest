@@ -34,6 +34,15 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Renderer::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\Renderer', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\Renderer::execute
      */
     public function testExecute()

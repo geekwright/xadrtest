@@ -34,6 +34,15 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\User::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\User', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\User::clearAll
      * @covers Xmf\Xadr\User::isAuthenticated
      * @covers Xmf\Xadr\User::setAuthenticated

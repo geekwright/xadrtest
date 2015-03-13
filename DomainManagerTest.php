@@ -79,6 +79,7 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $this->assertInstanceOf('\Xmf\Xadr\DomainManager', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
     }
 
     /**

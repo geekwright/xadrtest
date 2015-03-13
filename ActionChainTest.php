@@ -33,7 +33,16 @@ class ActionChainTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
+     /**
+     * @covers Xmf\Xadr\ActionChain::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\ActionChain', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+   /**
      * @covers Xmf\Xadr\ActionChain::execute
      * @todo   Implement testExecute().
      */

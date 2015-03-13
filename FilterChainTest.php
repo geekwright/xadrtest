@@ -8,7 +8,7 @@ class FilterChainTestFilter extends Filter
 {
     public function execute($filterChain)
     {
-        $this->request()->attributes->set('ourmessage', 'fred');
+        $this->request()->attributes()->set('ourmessage', 'fred');
         $filterChain->execute();
     }
 }
@@ -55,7 +55,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
     public function testRegisterExecute()
     {
         $attrName = 'ourmessage';
-        $attributes = $this->context->getRequest()->attributes;
+        $attributes = $this->context->getRequest()->attributes();
         $attributes->remove($attrName);
         $this->object->register(new FilterChainTestFilter($this->context));
         $this->assertNull($attributes->get($attrName));

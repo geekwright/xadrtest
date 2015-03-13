@@ -34,6 +34,16 @@ class XoopsUserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\XoopsUser::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\XoopsUser', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\User', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\XoopsUser::isAuthenticated
      * @todo   Implement testIsAuthenticated().
      */

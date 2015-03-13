@@ -35,6 +35,16 @@ class XoopsResponderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\XoopsResponder::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\XoopsResponder', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\Responder', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\XoopsResponder::renderer
      * @todo   Implement testRenderer().
      */

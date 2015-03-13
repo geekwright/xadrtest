@@ -36,6 +36,16 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Request::attributes
+     */
+    public function testAttributes()
+    {
+        $obj = $this->object->attributes();
+        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
+        $this->assertSame($obj, $this->object->attributes());
+    }
+
+    /**
      * @covers Xmf\Xadr\Request::getMethod
      * @todo   Implement testGetMethod().
      */

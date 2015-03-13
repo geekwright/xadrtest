@@ -32,6 +32,15 @@ class DomainStateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\DomainState::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\DomainState', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\DomainState::get
      * @covers Xmf\Xadr\DomainState::set
      * @covers Xmf\Xadr\DomainState::remove

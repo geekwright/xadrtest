@@ -34,6 +34,16 @@ class XoopsSmartyRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\XoopsSmartyRenderer::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\XoopsSmartyRenderer', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\Renderer', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\XoopsSmartyRenderer::execute
      * @todo   Implement testExecute().
      */

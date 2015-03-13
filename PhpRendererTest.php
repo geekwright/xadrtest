@@ -21,7 +21,8 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new PhpRenderer;
+        $context = \Xmf\Xadr\Controller::getNew();
+        $this->object = new PhpRenderer($context);
     }
 
     /**
@@ -30,6 +31,16 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    /**
+     * @covers Xmf\Xadr\PhpRenderer::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\PhpRenderer', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\Renderer', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
     }
 
     /**

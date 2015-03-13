@@ -44,6 +44,15 @@ class AuthorizationHandlerTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    /**
+     * @covers Xmf\Xadr\AuthorizationHandler::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\AuthorizationHandler', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
     public function testExecute()
     {
         $this->assertNull($this->object->execute($this->action));

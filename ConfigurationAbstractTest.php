@@ -33,6 +33,15 @@ class ConfigurationAbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\ConfigurationAbstract::__construct
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf('\Xmf\Xadr\ConfigurationAbstract', $this->object);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+    }
+
+    /**
      * @covers Xmf\Xadr\ConfigurationAbstract::initContextAware
      */
     public function testInheritedConfigContext()
