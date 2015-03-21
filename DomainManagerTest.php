@@ -97,6 +97,7 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\DomainManager::getDomain
+     * @covers Xmf\Xadr\DomainManager::notDomainMessage
      */
     public function testGetDomainException()
     {
@@ -106,6 +107,7 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\DomainManager::getDomain
+     * @covers Xmf\Xadr\DomainManager::notInitializedDomainMessage
      */
     public function testGetDomainFailureException()
     {
@@ -115,6 +117,7 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\DomainManager::getDomain
+     * @covers Xmf\Xadr\DomainManager::notInitializedDomainMessage
      */
     public function testGetDomainFailureChainedException()
     {

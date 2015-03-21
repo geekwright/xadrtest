@@ -29,7 +29,7 @@ class CatalogedPrivilegeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->catalog = new CatalogedPrivilegeTestCatalog;
-        $this->object = new CatalogedPrivilege('permname', 'item', $this->catalog);
+        //$this->object = new CatalogedPrivilege('permname', 'item', $this->catalog);
     }
 
     /**
@@ -41,11 +41,28 @@ class CatalogedPrivilegeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\CatalogedPrivilege::__construct
      * @covers Xmf\Xadr\CatalogedPrivilege::getNormalizedPrivilegeItem
      * @todo   Implement testGetPemissionItem().
      */
     public function testDetNormalizedPrivilegeItem()
     {
-        $this->assertFalse($this->object->getNormalizedPrivilegeItem());
+        $this->catalog->newEntry(
+            '\Xmf\Xadr\Catalog\Permission',
+            'permname',
+            'display name',
+            'description'
+        )
+            ->addItem(1, 'item1', 'description1')
+            ->addItem(2, 'item2', 'description2');
+
+        $priv1 = new CatalogedPrivilege('permname', 'item', $this->catalog);
+        $this->assertFalse($priv1->getNormalizedPrivilegeItem());
+        $priv2 = new CatalogedPrivilege('permname', 42, $this->catalog);
+        $this->assertEquals(42, $priv2->getNormalizedPrivilegeItem());
+        $priv3 = new CatalogedPrivilege('permname', 'item1', $this->catalog);
+        $this->assertEquals(1, $priv3->getNormalizedPrivilegeItem());
+        $priv4 = new CatalogedPrivilege('permname', 'item2', $this->catalog);
+        $this->assertEquals(2, $priv4->getNormalizedPrivilegeItem());
     }
 }

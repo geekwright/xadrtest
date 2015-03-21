@@ -43,6 +43,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
+        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\Action', array($this->context));
         $this->assertInstanceOf('\Xmf\Xadr\Action', $this->object);
         $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
     }
@@ -93,11 +94,11 @@ class ActionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Action::isSecure
+     * @covers Xmf\Xadr\Action::isLoginRequired
      */
-    public function testIsSecure()
+    public function testIsLoginRequired()
     {
-        $this->assertFalse($this->object->isSecure());
+        $this->assertFalse($this->object->isLoginRequired());
     }
 
     /**
@@ -110,10 +111,18 @@ class ActionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Action::execute
+     */
+    public function testExecute()
+    {
+        $this->assertTrue(method_exists($this->object, 'execute'));
+    }
+
+    /**
      * @covers Xmf\Xadr\Action::validate
      */
     public function testValidate()
     {
-        $this->assertTrue($this->object->validate());
+        $this->assertTrue(method_exists($this->object, 'validate'));
     }
 }

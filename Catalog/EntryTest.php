@@ -9,10 +9,10 @@ class EntryTestCatalog extends \Xmf\Xadr\Catalog
 
 class EntryTestEntry extends Entry
 {
-    public function __construct($name, $type)
+    public function __construct($entryName, $type)
     {
+        parent::__construct($entryName);
         $this->entryType = $type;
-        $this->entryName = $name;
     }
 }
 
@@ -43,6 +43,15 @@ class EntryTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Entry::__construct
+     */
+    public function test__construct()
+    {
+        $entry = new EntryTestEntry('construct', 'test');
+        $this->assertEquals('construct', $entry->getEntryName());
     }
 
     /**

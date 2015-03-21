@@ -32,10 +32,10 @@ class ConfirmTest extends \PHPUnit_Framework_TestCase
         // Confirm uses parameters from request, so we need to
         // set up a controller and request for context
         $this->request = $this->controller->getRequest();
-        $this->request->setParameter('email', 'fred@example.com');
-        $this->request->setParameter('emailOK', 'fred@example.com');
-        $this->request->setParameter('emailBAD', 'fred@example.co');
-        $this->request->setParameter('emailCASE', 'Fred@Example.com');
+        $this->request->parameters()->set('email', 'fred@example.com');
+        $this->request->parameters()->set('emailOK', 'fred@example.com');
+        $this->request->parameters()->set('emailBAD', 'fred@example.co');
+        $this->request->parameters()->set('emailCASE', 'Fred@Example.com');
     }
 
     /**

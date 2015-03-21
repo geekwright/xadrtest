@@ -184,19 +184,19 @@ class FieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\Catalog\Field::__call
-     * @covers Xmf\Xadr\Catalog\Field::variableType
-     * @covers Xmf\Xadr\Catalog\Field::maxLength
-     * @covers Xmf\Xadr\Catalog\Field::defaultValue
-     * @covers Xmf\Xadr\Catalog\Field::enumValues
-     * @covers Xmf\Xadr\Catalog\Field::description
-     * @covers Xmf\Xadr\Catalog\Field::description
-     * @covers Xmf\Xadr\Catalog\Field::title
-     * @covers Xmf\Xadr\Catalog\Field::shortTitle
-     * @covers Xmf\Xadr\Catalog\Field::cleanerType
-     * @covers Xmf\Xadr\Catalog\Field::validateDescription
-     * @covers Xmf\Xadr\Catalog\Field::displayTransform
-     * @covers Xmf\Xadr\Catalog\Field::storeTransform
-     * @covers Xmf\Xadr\Catalog\Field::getFieldProperties
+     *  -covers Xmf\Xadr\Catalog\Field::variableType
+     *  -covers Xmf\Xadr\Catalog\Field::maxLength
+     *  -covers Xmf\Xadr\Catalog\Field::defaultValue
+     *  -covers Xmf\Xadr\Catalog\Field::enumValues
+     *  -covers Xmf\Xadr\Catalog\Field::description
+     *  -covers Xmf\Xadr\Catalog\Field::description
+     *  -covers Xmf\Xadr\Catalog\Field::title
+     *  -covers Xmf\Xadr\Catalog\Field::shortTitle
+     *  -covers Xmf\Xadr\Catalog\Field::cleanerType
+     *  -covers Xmf\Xadr\Catalog\Field::validateDescription
+     *  -covers Xmf\Xadr\Catalog\Field::displayTransform
+     *  -covers Xmf\Xadr\Catalog\Field::storeTransform
+     *  -covers Xmf\Xadr\Catalog\Field::getFieldProperties
      */
     public function testFluent()
     {
@@ -233,6 +233,41 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         }
 
     }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::__call
+     */
+    public function test__callException()
+    {
+        $this->setExpectedException('\BadMethodCallException');
+        $this->object->foo('bar');
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::__construct
+     */
+    public function test__construct()
+    {
+        $expected = array(
+            'variableType' => 'string',
+            'maxLength' => null,
+            'defaultValue' => null,
+            'enumValues' => null,
+            'description' => null,
+            'title' => null,
+            'shortTitle' => null,
+            'cleanerType' => 'string',
+            'validate' => null,
+            'validateDescription' => null,
+            'displayTransform' => null,
+        );
+        $field = new Field('constructtest');
+        $actualValues = $field->getFieldProperties();
+        foreach ($actualValues as $key => $actual) {
+            $this->assertSame($expected[$key], $actual);
+        }
+    }
+
 /*
 variableType
 maxLength

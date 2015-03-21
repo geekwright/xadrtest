@@ -34,7 +34,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Form::__construct
+     * -covers Xmf\Xadr\Form::__construct
      */
     public function testConstruct()
     {

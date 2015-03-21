@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 // this Filter just sets the 'ourmessage'
 class FilterChainTestFilter extends Filter
 {
-    public function execute($filterChain)
+    public function execute(FilterChain $filterChain)
     {
         $this->request()->attributes()->set('ourmessage', 'fred');
         $filterChain->execute();
@@ -46,6 +46,15 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    /**
+     * @covers Xmf\Xadr\FilterChain::__construct
+     */
+    public function test__construct()
+    {
+        $filterChain = new FilterChain;
+        $this->assertInstanceOf('\Xmf\Xadr\FilterChain', $filterChain);
     }
 
     /**

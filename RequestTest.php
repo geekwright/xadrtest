@@ -36,37 +36,52 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Request::__construct
+     * @covers Xmf\Xadr\Request::getXadrArrayObject
+     */
+    public function test__construct()
+    {
+        $attributes = new XadrArray;
+        $object = new Request(array(), $attributes);
+        $this->assertInstanceOf('\Xmf\Xadr\Request', $object);
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $object->parameters());
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $object->attributes());
+        $this->assertSame($attributes, $object->attributes());
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $object->errors());
+    }
+
+    /**
      * @covers Xmf\Xadr\Request::attributes
      */
     public function testAttributes()
     {
         $obj = $this->object->attributes();
-        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $obj);
         $this->assertSame($obj, $this->object->attributes());
     }
 
     /**
      * @covers Xmf\Xadr\Request::getMethod
-     * @todo   Implement testGetMethod().
+     * @covers Xmf\Xadr\Request::setMethod
      */
-    public function testGetMethod()
+    public function testGetSetMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->setMethod(Xadr::REQUEST_GET);
+        $this->assertEquals(Xadr::REQUEST_GET, $this->object->getMethod());
+        $this->object->setMethod(Xadr::REQUEST_POST);
+        $this->assertEquals(Xadr::REQUEST_POST, $this->object->getMethod());
+        $this->object->setMethod(42);
+        $this->assertEquals(42, $this->object->getMethod());
     }
 
     /**
-     * @covers Xmf\Xadr\Request::setMethod
-     * @todo   Implement testSetMethod().
+     * @covers Xmf\Xadr\Request::parameters
      */
-    public function testSetMethod()
+    public function testParameters()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $obj = $this->object->parameters();
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $obj);
+        $this->assertSame($obj, $this->object->parameters());
     }
 
     /**
@@ -83,16 +98,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::getParameters
-     */
-    public function testGetParameters()
-    {
-        $obj = $this->object->getParameters();
-        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
-        $this->assertSame($obj, $this->object->getParameters());
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::hasParameter
      */
     public function testHasParameter()
@@ -102,124 +107,66 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Request::setParameter
+     * @covers Xmf\Xadr\Request::errors
      */
-    public function testSetParameter()
+    public function testErrors()
     {
-        $actual = $this->object->getParameter('key');
-        $this->assertSame('value', $actual);
-        $this->object->setParameter('key', 'newvalue');
-        $actual = $this->object->getParameter('key');
-        $this->assertSame('newvalue', $actual);
-        $this->assertFalse($this->object->hasParameter('nosuchkey'));
-        $this->object->setParameter('nosuchkey', 'somevalue');
-        $this->assertSame('somevalue', $this->object->getParameter('nosuchkey'));
-
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setParameterByRef
-     * @todo   Implement testSetParameterByRef().
-     */
-    public function testSetParameterByRef()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Request::setParameterArray
-     * @todo   Implement testSetParameterArray().
-     */
-    public function testSetParameterArray()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $obj = $this->object->errors();
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $obj);
+        $this->assertSame($obj, $this->object->errors());
     }
 
     /**
      * @covers Xmf\Xadr\Request::getError
-     * @todo   Implement testGetError().
-     */
-    public function testGetError()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::getErrors
-     */
-    public function testGetErrors()
-    {
-        $obj = $this->object->getErrors();
-        $this->assertInstanceOf('\Xmf\Xadr\Attributes', $obj);
-        $this->assertSame($obj, $this->object->getErrors());
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::getErrorsAsHtml
-     * @todo   Implement testGetErrorsAsHtml().
-     */
-    public function testGetErrorsAsHtml()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::hasError
-     * @todo   Implement testHasError().
-     */
-    public function testHasError()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::hasErrors
-     * @todo   Implement testHasErrors().
-     */
-    public function testHasErrors()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Request::setError
-     * @todo   Implement testSetError().
+     * @covers Xmf\Xadr\Request::setErrors
      */
-    public function testSetError()
+    public function testGetHasSetErrors()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->assertSame(array(), $this->object->getErrors());
+        $this->assertFalse($this->object->hasErrors());
+        $this->assertFalse($this->object->hasError('fubar'));
+        $this->assertNull($this->object->getError('fubar'));
+        $this->assertSame('', $this->object->getErrorsAsHtml());
+
+        $this->object->setError('foo', 'bar');
+        $this->assertSame('bar', $this->object->getError('foo'));
+        $this->assertNull($this->object->getError('fubar'));
+        $set = array(
+            'foo' => 'baz',
+            'fred' => '42'
         );
+        $this->object->setError('notfoo', 'bar');
+        $this->object->setErrors($set);
+        $this->assertSame('bar', $this->object->getError('notfoo'));
+        $this->assertSame('baz', $this->object->getError('foo'));
+        $this->assertSame('42', $this->object->getError('fred'));
+        $this->assertSame(array('foo' => 'baz'), $this->object->getErrors('foo'));
+        $this->assertSame('', $this->object->getErrorsAsHtml('squawk'));
+        \Xoops::getInstance()->setTpl(new \XoopsTpl()); // crap! this is bad
+        $message = $this->object->getErrorsAsHtml('foo');
+        $this->assertTrue(false!==mb_strpos($message, 'baz'));
     }
 
     /**
-     * @covers Xmf\Xadr\Request::setErrors
-     * @todo   Implement testSetErrors().
+     * @covers Xmf\Xadr\Request::getHttpQueryParameters
      */
-    public function testSetErrors()
+    public function testGetHttpQueryParameters()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $obj = $this->object->getHttpQueryParameters();
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $obj);
+    }
+
+    /**
+     * @covers Xmf\Xadr\Request::getHttpBodyParameters
+     */
+    public function testGetHttpBodyParameters()
+    {
+        $obj = $this->object->getHttpBodyParameters();
+        $this->assertInstanceOf('\Xmf\Xadr\XadrArray', $obj);
     }
 }

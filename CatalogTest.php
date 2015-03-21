@@ -11,9 +11,9 @@ class CatalogTestCatalog extends Catalog
 
 class CatalogTestEntry extends Entry
 {
-    public function __construct($entryName, $entryType)
+    public function __construct($entryName, $arg1, $arg2 = null, $arg3 = null, $arg4 = null)
     {
-        $this->entryType = $entryType;
+        $this->entryType = $arg1;
         $this->entryName = $entryName;
     }
 }
@@ -79,6 +79,19 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($replaced, $actual);
         $this->assertNotSame($replaced, $entry);
+
+        $this->assertNull($this->object->getEntry('wrong', 'bad'));
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog::addEntry
+     */
+    public function testAddEntryException()
+    {
+        $entry = new CatalogTestEntry('name', 'test');
+        $this->object->addEntry($entry);
+        $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogEntryException');
+        $this->object->addEntry($entry);
     }
 
     /**
@@ -94,6 +107,12 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xmf\Xadr\Catalog\Field', $entry);
         $this->assertEquals($entry->getEntryName(), $name);
         $this->assertSame($entry, $this->object->getEntry(Entry::FIELD, $name));
+
+        $this->object->newEntry('\Xmf\Xadr\CatalogTestEntry', 'name1', 'test');
+        $this->object->newEntry('\Xmf\Xadr\CatalogTestEntry', 'name2', 'test', 'arg2');
+        $this->object->newEntry('\Xmf\Xadr\CatalogTestEntry', 'name3', 'test', 'arg2', 'arg3');
+        $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogEntryException');
+        $this->object->newEntry('\Xmf\Xadr\CatalogTestEntry', 'name4', 'test', 'arg2', 'arg3', 'arg4');
     }
 
     /**

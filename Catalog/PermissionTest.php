@@ -56,16 +56,18 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Catalog\Permission::__construct
      * @covers Xmf\Xadr\Catalog\Permission::translateNameToItemId
      */
     public function testTranslateNameToItemId()
     {
-        $this->object
+        $permission = new Permission('test2', 'Test2', 'description2');
+        $permission
             ->addItem(1, 'fred', 'Fred Label')
             ->addItem(2, 'barney', 'Barney Label');
-        $this->assertEquals($this->object->translateNameToItemId('fred'), 1);
-        $this->assertEquals($this->object->translateNameToItemId('barney'), 2);
-        $this->assertFalse($this->object->translateNameToItemId('wilma'));
+        $this->assertEquals($permission->translateNameToItemId('fred'), 1);
+        $this->assertEquals($permission->translateNameToItemId('barney'), 2);
+        $this->assertFalse($permission->translateNameToItemId('wilma'));
     }
 
     /**
@@ -73,10 +75,11 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderPermissionForm()
     {
+
         $render = $this->object
             ->addItem(1, 'fred', 'Fred Label')
             ->addItem(2, 'barney', 'Barney Label')
-            ->renderPermissionForm(1);
+            ->renderPermissionForm();
         // looks like the right form?
         $this->assertEquals(true, strpos($render, '<form title="Permission Test"'));
         $this->assertEquals(true, strpos($render, 'name="perms[permtest][groups]'));

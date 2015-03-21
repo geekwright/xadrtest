@@ -33,13 +33,23 @@ class ResponseSelectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\ResponseSelector::__construct
+     */
+    public function test__construct()
+    {
+        $resp = new ResponseSelector(Xadr::RESPONSE_ERROR, 'unit2', 'action2');
+        $this->assertSame(Xadr::RESPONSE_ERROR, $resp->getResponseCode());
+        $this->assertSame('unit2', $resp->getResponseUnit());
+        $this->assertSame('action2', $resp->getResponseAction());
+    }
+
+    /**
      * @covers Xmf\Xadr\ResponseSelector::getResponseCode
      */
     public function testGetResponseCode()
     {
         $this->assertSame(Xadr::RESPONSE_INPUT, $this->object->getResponseCode());
     }
-
     /**
      * @covers Xmf\Xadr\ResponseSelector::getResponseUnit
      */

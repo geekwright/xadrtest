@@ -3,6 +3,24 @@ namespace Xmf\Xadr;
 
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
+class FilterListFilter extends Filter
+{
+    public function execute(FilterChain $filterChain)
+    {
+        $filterChain->execute();
+    }
+}
+
+class FilterListConcrete extends FilterList
+{
+    protected function initialize()
+    {
+        $context = \Xmf\Xadr\Controller::getNew();
+        $filter = new FilterListFilter();
+        $this->filters[] = $filter;
+    }
+}
+
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
@@ -16,12 +34,17 @@ class FilterListTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Controlller
+     */
+    protected $context;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $context = \Xmf\Xadr\Controller::getNew();
+        $this->context = \Xmf\Xadr\Controller::getNew();
         //$this->object = new FilterList($context);
         $this->object = $this->getMockForAbstractClass('Xmf\Xadr\FilterList', array($context));
    }
@@ -36,11 +59,18 @@ class FilterListTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Xadr\FilterList::__construct
+     * @covers Xmf\Xadr\FilterList::initContextAware
+     * @covers Xmf\Xadr\FilterList::initialize
+     * @covers Xmf\Xadr\FilterList::registerFilters
      */
     public function testConstruct()
     {
-        $this->assertInstanceOf('\Xmf\Xadr\FilterList', $this->object);
-        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
+        $filterList = new FilterListConcrete($this->context);
+        $this->assertInstanceOf('\Xmf\Xadr\FilterList', $filterList);
+        $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $filterList);
+        $filterChain = new FilterChain;
+        $filterList->registerFilters($filterChain);
+        $filterChain->execute();
     }
 
     /**

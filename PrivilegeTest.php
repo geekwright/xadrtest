@@ -33,11 +33,13 @@ class PrivilegeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Xadr\Privilege::__construct
      * @covers Xmf\Xadr\Privilege::getPrivilegeName
      */
     public function testGetPrivilegeName()
     {
-        $this->assertEquals($this->object->getPrivilegeName(), 'permname');
+        $this->object = new Privilege('permname', 'item');
+        $this->assertEquals('permname', $this->object->getPrivilegeName());
     }
 
     /**
@@ -45,7 +47,7 @@ class PrivilegeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPrivilegeItem()
     {
-        $this->assertEquals($this->object->getPrivilegeItem(), 'item');
+        $this->assertEquals('item', $this->object->getPrivilegeItem());
     }
 
     /**
@@ -53,6 +55,6 @@ class PrivilegeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNormalizedPrivilegeItem()
     {
-        $this->assertEquals($this->object->getNormalizedPrivilegeItem(), 'item');
+        $this->assertEquals('item', $this->object->getNormalizedPrivilegeItem());
     }
 }
