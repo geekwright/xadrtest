@@ -55,6 +55,6 @@ class PrivilegeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNormalizedPrivilegeItem()
     {
-        $this->assertEquals('item', $this->object->getNormalizedPrivilegeItem());
+        $this->assertFalse($this->object->getNormalizedPrivilegeItem());
     }
 }

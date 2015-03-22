@@ -43,18 +43,6 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Controller::actionExists
-     * @todo   Implement testActionExists().
-     */
-    public function testActionExists()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Xadr\Controller::dispatch
      * @todo   Implement testDispatch().
      */
@@ -307,18 +295,6 @@ class ControllerTest extends \PHPUnit_Framework_TestCase
      * @todo   Implement testMapUnitFilters().
      */
     public function testMapUnitFilters()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Xmf\Xadr\Controller::redirect
-     * @todo   Implement testRedirect().
-     */
-    public function testRedirect()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
