@@ -147,7 +147,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('42', $this->object->getError('fred'));
         $this->assertSame(array('foo' => 'baz'), $this->object->getErrors('foo'));
         $this->assertSame('', $this->object->getErrorsAsHtml('squawk'));
-        \Xoops::getInstance()->setTpl(new \XoopsTpl()); // crap! this is bad
         $message = $this->object->getErrorsAsHtml('foo');
         $this->assertTrue(false!==mb_strpos($message, 'baz'));
     }

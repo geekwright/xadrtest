@@ -148,39 +148,82 @@ class FieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\Catalog\Field::storeTransform
+     * @covers Xmf\Xadr\Catalog\Field::inputTransform
      */
-    public function testStoreTransform()
+    public function testInputTransform()
     {
         $callable = 'ucfirst';
-        $this->object->storeTransform($callable);
+        $this->object->inputTransform($callable);
         $field = $this->object->getFieldProperties();
-        $transform = $field['storeTransform'];
+        $transform = $field['inputTransform'];
         $this->assertEquals('Fred', $transform('fred'));
 
         $callable = array($this, 'utilityCallable');
-        $this->object->storeTransform($callable);
+        $this->object->inputTransform($callable);
         $field = $this->object->getFieldProperties();
-        $transform = $field['storeTransform'];
+        $transform = $field['inputTransform'];
         $this->assertEquals('FRED', $transform('Fred'));
 
         $callable = function ($arg) {
             return '"'.$arg.'"';
         };
-        $this->object->storeTransform($callable);
+        $this->object->inputTransform($callable);
         $field = $this->object->getFieldProperties();
-        $transform = $field['storeTransform'];
+        $transform = $field['inputTransform'];
         $this->assertEquals('"Fred"', $transform('Fred'));
     }
 
     /**
-     * @covers Xmf\Xadr\Catalog\Field::storeTransform
+     * @covers Xmf\Xadr\Catalog\Field::inputTransform
      */
-    public function testStoreTransformException()
+    public function testInputTransformException()
     {
         $this->setExpectedException('\InvalidArgumentException');
-        $this->object->storeTransform('this is not a callable!');
+        $this->object->inputTransform('this is not a callable!');
     }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::formAttributes
+     */
+    public function testFormAttributes()
+    {
+        $attributes = array('required' => null);
+        $this->object->formAttributes($attributes);
+        $field = $this->object->getFieldProperties();
+        $formAttributes = $field['formAttributes'];
+        $this->assertEquals($attributes, $formAttributes);
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::formAttributes
+     */
+    public function testFormAttributesException()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->object->formAttributes('this is not a array!');
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::formClassname
+     */
+    public function testFormClassname()
+    {
+        $expected = 'Text';
+        $this->object->formClassname($expected);
+        $field = $this->object->getFieldProperties();
+        $actual = $field['formClassname'];
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Xmf\Xadr\Catalog\Field::formClassname
+     */
+    public function testFormClassnameException()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->object->formClassname('this is not a form element!');
+    }
+
 
     /**
      * @covers Xmf\Xadr\Catalog\Field::__call
@@ -195,7 +238,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
      *  -covers Xmf\Xadr\Catalog\Field::cleanerType
      *  -covers Xmf\Xadr\Catalog\Field::validateDescription
      *  -covers Xmf\Xadr\Catalog\Field::displayTransform
-     *  -covers Xmf\Xadr\Catalog\Field::storeTransform
+     *  -covers Xmf\Xadr\Catalog\Field::inputTransform
      *  -covers Xmf\Xadr\Catalog\Field::getFieldProperties
      */
     public function testFluent()
@@ -211,7 +254,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             'cleanerType' => 'string',
             'validateDescription' => "Must be one of 'default','first', 'last'",
             'displayTransform' => 'mb_strtolower',
-            'storeTransform' => 'mb_strtoupper',
+            'inputTransform' => 'mb_strtoupper',
         );
 
         $field = new Field('fluenttest');
@@ -225,7 +268,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             ->cleanerType($vars['cleanerType'])
             ->validateDescription($vars['validateDescription'])
             ->displayTransform($vars['displayTransform'])
-            ->storeTransform($vars['storeTransform']);
+            ->inputTransform($vars['inputTransform']);
 
         $fieldVars = $field->getFieldProperties();
         foreach ($vars as $key => $expected) {
@@ -260,6 +303,8 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             'validate' => null,
             'validateDescription' => null,
             'displayTransform' => null,
+            'formClassname'  => null,
+            'formAttributes'  => array(),
         );
         $field = new Field('constructtest');
         $actualValues = $field->getFieldProperties();
@@ -280,6 +325,7 @@ cleanerType
 validate
 validateDescription
 displayTransform
-storeTransform
+inputTransform
+formAttributes
 */
 }
