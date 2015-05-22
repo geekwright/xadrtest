@@ -102,7 +102,7 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
     {
         $name = 'name';
 
-        $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', $name);
+        $entry = $this->object->newEntry('Field', $name);
         $this->assertInstanceOf('\Xmf\Xadr\Catalog\Entry', $entry);
         $this->assertInstanceOf('\Xmf\Xadr\Catalog\Field', $entry);
         $this->assertEquals($entry->getEntryName(), $name);
@@ -121,7 +121,7 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
     public function testNewEntryException1()
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogEntryException');
-        $entry = $this->object->newEntry('xfield', 'name');
+        $entry = $this->object->newEntry('xfield', 'name'); // bad class
     }
 
     /**
@@ -131,7 +131,7 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogEntryException');
         $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', 'name');
-        $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', 'name');
+        $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', 'name'); // duplicate name
     }
 
     /**
@@ -140,7 +140,7 @@ class CatalogTest extends \PHPUnit_Framework_TestCase
     public function testNewEntryException3()
     {
         $this->setExpectedException('Xmf\Xadr\Exceptions\InvalidCatalogEntryException');
-        $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', 'name', 'one', 'two', 'three', 'four');
+        $entry = $this->object->newEntry('\Xmf\Xadr\Catalog\Field', 'name', 'one', 'two', 'three', 'four'); // too many args
     }
 
     /**

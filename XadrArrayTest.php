@@ -32,6 +32,12 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testContracts()
+    {
+        $this->assertInstanceOf('ArrayObject', $this->object);
+        $this->assertInstanceOf('Xoops\Core\AttributeInterface', $this->object);
+    }
+
     /**
      * @covers Xmf\Xadr\XadrArray::get
      */
@@ -76,15 +82,15 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Xadr\XadrArray::hasName
+     * @covers Xmf\Xadr\XadrArray::has
      */
-    public function testHasName()
+    public function testHas()
     {
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
-        $this->assertTrue($this->object->hasName('test1'));
-        $this->assertTrue($this->object->hasName('test2'));
-        $this->assertFalse($this->object->hasName('test3'));
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertFalse($this->object->has('test3'));
     }
 
     /**
@@ -94,10 +100,10 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
-        $this->assertTrue($this->object->hasName('test1'));
-        $this->assertTrue($this->object->hasName('test2'));
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
         $this->object->remove('test1');
-        $this->assertFalse($this->object->hasName('test1'));
+        $this->assertFalse($this->object->has('test1'));
     }
 
     /**
@@ -107,8 +113,8 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
     {
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
-        $this->assertTrue($this->object->hasName('test1'));
-        $this->assertTrue($this->object->hasName('test2'));
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
 
         $replacements = array(
             'test3' => 'OK3',
@@ -119,10 +125,10 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('test2', $oldValues);
         $this->assertArrayNotHasKey('test3', $oldValues);
         $this->assertArrayNotHasKey('test4', $oldValues);
-        $this->assertTrue($this->object->hasName('test3'));
-        $this->assertTrue($this->object->hasName('test4'));
-        $this->assertFalse($this->object->hasName('test1'));
-        $this->assertFalse($this->object->hasName('test2'));
+        $this->assertTrue($this->object->has('test3'));
+        $this->assertTrue($this->object->has('test4'));
+        $this->assertFalse($this->object->has('test1'));
+        $this->assertFalse($this->object->has('test2'));
         $this->assertSame('OK3', $this->object->get('test3'));
         $this->assertSame('OK4', $this->object->get('test4'));
     }
@@ -135,8 +141,8 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
         $this->object->set('test1', 'OK1');
         $this->object->set('test2', 'OK2');
 
-        $this->assertTrue($this->object->hasName('test1'));
-        $this->assertTrue($this->object->hasName('test2'));
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
 
         $replacements = array(
             'test2' => 'OK2new',
@@ -144,9 +150,9 @@ class XadrArrayTest extends \PHPUnit_Framework_TestCase
         );
         $this->object->setMerge($replacements);
 
-        $this->assertTrue($this->object->hasName('test1'));
-        $this->assertTrue($this->object->hasName('test2'));
-        $this->assertTrue($this->object->hasName('test3'));
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertTrue($this->object->has('test3'));
 
         $this->assertSame('OK1', $this->object->get('test1'));
         $this->assertSame('OK2new', $this->object->get('test2'));

@@ -5,10 +5,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 class FilterListFilter extends Filter
 {
-    public function execute(FilterChain $filterChain)
-    {
-        $filterChain->execute();
-    }
+
 }
 
 class FilterListConcrete extends FilterList
@@ -16,7 +13,7 @@ class FilterListConcrete extends FilterList
     protected function initialize()
     {
         $context = \Xmf\Xadr\Controller::getNew();
-        $filter = new FilterListFilter();
+        $filter = new FilterListFilter($context);
         $this->filters[] = $filter;
     }
 }
@@ -46,7 +43,7 @@ class FilterListTest extends \PHPUnit_Framework_TestCase
     {
         $this->context = \Xmf\Xadr\Controller::getNew();
         //$this->object = new FilterList($context);
-        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\FilterList', array($context));
+        $this->object = $this->getMockForAbstractClass('Xmf\Xadr\FilterList', array($this->context));
    }
 
     /**

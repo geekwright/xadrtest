@@ -303,6 +303,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             'validate' => null,
             'validateDescription' => null,
             'displayTransform' => null,
+            'inputTransform' => null,
             'formClassname'  => null,
             'formAttributes'  => array(),
         );

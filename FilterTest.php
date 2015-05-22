@@ -33,20 +33,46 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers Xmf\Xadr\Filter::__construct
-     */
-    public function testConstruct()
+    public function testContracts()
     {
         $this->assertInstanceOf('\Xmf\Xadr\Filter', $this->object);
         $this->assertInstanceOf('\Xmf\Xadr\ContextAware', $this->object);
     }
 
     /**
-     * @covers Xmf\Xadr\Filter::initialize
+     * @covers Xmf\Xadr\Filter::initContextAware
      */
-    public function testInitialize()
+    public function testInitContextAware()
     {
-        $this->assertNull($this->object->initialize(array('test'=>'value')));
+        $this->assertTrue(method_exists($this->object , 'initContextAware'));
     }
+
+    /**
+     * @covers Xmf\Xadr\Filter::executePreAction
+     */
+    public function testExecutePreAction()
+    {
+        $this->assertTrue(method_exists($this->object , 'executePreAction'));
+        $this->assertNull($this->object->executePreAction());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Filter::executePostAction
+     */
+    public function testExecutePostAction()
+    {
+        $this->assertTrue(method_exists($this->object , 'executePostAction'));
+        $this->assertNull($this->object->executePostAction());
+    }
+
+    /**
+     * @covers Xmf\Xadr\Filter::execute
+     */
+    final public function testExecute(FilterChain $filterChain)
+    {
+        $this->assertTrue(method_exists($this->object , 'execute'));
+        $chain = new FilterChain;
+        $this->assertNull($this->object->execute($chain));
+    }
+
 }
